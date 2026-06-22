@@ -67,11 +67,11 @@ class HiringManagerAgent(BaseAgent):
             # Ask initial question
             question = self.questions[self.question_index % len(self.questions)]
             self.question_index += 1
-            return f"**{self.name}:** {question}"
+            return f"{self.name}: {question}"
         else:
             # Provide follow-up if answer is vague
             if len(user_input.split()) < 30 or "we" in user_input.lower():
-                return f"**{self.name}:** That's interesting. Can you be more specific about YOUR role in that situation? What actions did YOU personally take?"
+                return f"{self.name}: That's interesting. Can you be more specific about YOUR role in that situation? What actions did YOU personally take?"
             return ""
 
 
@@ -93,13 +93,13 @@ class SystemArchitectAgent(BaseAgent):
         if not user_input:
             question = self.questions[self.question_index % len(self.questions)]
             self.question_index += 1
-            return f"**{self.name}:** {question}"
+            return f"{self.name}: {question}"
         else:
             return ""
     
     def provide_hint(self, context: InterviewContext) -> str:
         """Provide a small hint when user struggles"""
-        return f"**{self.name}:** Let me give you a hint - think about the trade-offs between consistency and availability in this scenario. How would CAP theorem apply here?"
+        return f"{self.name}: Let me give you a hint - think about the trade-offs between consistency and availability in this scenario. How would CAP theorem apply here?"
 
 
 class SeniorDevAgent(BaseAgent):
@@ -120,7 +120,7 @@ class SeniorDevAgent(BaseAgent):
         if not user_input:
             question = self.questions[self.question_index % len(self.questions)]
             self.question_index += 1
-            return f"**{self.name}:** {question}"
+            return f"{self.name}: {question}"
         else:
             return ""
 
