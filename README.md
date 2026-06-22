@@ -4,6 +4,8 @@
 
 PanelPulse simulates a complete technical interview panel with three specialized interviewers, providing job seekers with realistic practice and detailed performance feedback. Available in both CLI and beautiful web interface versions.
 
+![Interview Orchestrator Architecture](interview_orchestrator.png)
+
 ## 📋 Table of Contents
 
 - [Overview](#-overview)
