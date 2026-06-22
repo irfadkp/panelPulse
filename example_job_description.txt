@@ -1,0 +1,66 @@
+Senior Backend Engineer - Cloud Infrastructure Team
+
+Company: CloudScale Technologies
+Location: Remote (US)
+Type: Full-time
+
+ABOUT US
+CloudScale Technologies is a leading provider of cloud-native infrastructure solutions serving Fortune 500 companies. Our platform processes over 1 billion requests per day with 99.99% uptime.
+
+JOB DESCRIPTION
+We're seeking a Senior Backend Engineer to join our Cloud Infrastructure team. You'll be responsible for designing and building highly scalable, distributed systems that power our core platform. This role requires deep expertise in Kubernetes, microservices architecture, and production operations.
+
+KEY RESPONSIBILITIES
+- Design and implement scalable microservices using Go and Python
+- Build and maintain Kubernetes-based infrastructure serving millions of users
+- Implement observability solutions using OpenTelemetry, Prometheus, and Grafana
+- Lead architectural decisions for distributed systems and data pipelines
+- Mentor junior engineers and conduct technical design reviews
+- Participate in on-call rotation and incident response
+- Optimize system performance and reduce operational costs
+- Collaborate with product and DevOps teams on feature delivery
+
+REQUIRED QUALIFICATIONS
+- 5+ years of software engineering experience
+- Strong expertise in distributed systems and microservices architecture
+- Production experience with Kubernetes and container orchestration
+- Proficiency in at least one backend language (Go, Python, Java)
+- Deep understanding of system design patterns and trade-offs
+- Experience with observability tools (Prometheus, Grafana, Jaeger, OpenTelemetry)
+- Strong debugging and troubleshooting skills
+- Experience with cloud platforms (AWS, GCP, or Azure)
+- Excellent communication and collaboration skills
+
+PREFERRED QUALIFICATIONS
+- Experience with event-driven architectures (Kafka, RabbitMQ)
+- Knowledge of service mesh technologies (Istio, Linkerd)
+- Familiarity with GitOps and ArgoCD
+- Experience with infrastructure as code (Terraform, Pulumi)
+- Contributions to open source projects
+- Certified Kubernetes Administrator (CKA) or similar certification
+
+TECHNICAL STACK
+- Languages: Go, Python, Java
+- Infrastructure: Kubernetes, Docker, AWS EKS
+- Databases: PostgreSQL, Redis, DynamoDB
+- Messaging: Kafka, SQS
+- Observability: Prometheus, Grafana, OpenTelemetry, Jaeger
+- CI/CD: GitLab CI, ArgoCD
+
+WHAT WE OFFER
+- Competitive salary ($180K - $240K) + equity
+- Comprehensive health, dental, and vision insurance
+- 401(k) with company match
+- Unlimited PTO
+- Remote-first culture with flexible hours
+- Professional development budget ($5K/year)
+- Latest MacBook Pro and home office setup
+
+INTERVIEW PROCESS
+1. Initial phone screen (30 min)
+2. Technical interview with Senior Engineer (60 min)
+3. System design interview with Architect (90 min)
+4. Behavioral interview with Hiring Manager (45 min)
+5. Team fit interview (30 min)
+
+We value diversity and are committed to creating an inclusive environment for all employees.

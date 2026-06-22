@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PanelPulse - Mock Technical Interview</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-icon">🎯</span>
+                <span class="logo-text">PanelPulse</span>
+            </div>
+            <nav class="nav">
+                <a href="#" class="nav-link active">Interview</a>
+                <a href="#" class="nav-link">About</a>
+                <a href="#" class="nav-link">Help</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="screen active">
+            <div class="container">
+                <div class="welcome-content">
+                    <h1 class="welcome-title">
+                        <span class="gradient-text">Master Your Interview</span>
+                        <br>with AI-Powered Practice
+                    </h1>
+                    <p class="welcome-subtitle">
+                        Experience a realistic technical interview with our multi-agent panel.
+                        Get instant feedback and actionable insights to improve your performance.
+                    </p>
+                    
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">👔</div>
+                            <h3>Hiring Manager</h3>
+                            <p>Behavioral & Leadership</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🏗️</div>
+                            <h3>System Architect</h3>
+                            <p>Design & Scalability</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">💻</div>
+                            <h3>Senior Developer</h3>
+                            <p>Technical Depth</p>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary btn-large" onclick="showSetupScreen()">
+                        Start Interview
+                        <span class="btn-arrow">→</span>
+                    </button>
+
+                    <button class="btn btn-secondary btn-large" onclick="loadExampleData()">
+                        Try with Example Data
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Setup Screen -->
+        <div id="setup-screen" class="screen">
+            <div class="container">
+                <div class="setup-content">
+                    <button class="btn-back" onclick="showWelcomeScreen()">← Back</button>
+                    
+                    <h2 class="screen-title">Interview Setup</h2>
+                    <p class="screen-subtitle">Provide your resume and target job description to begin</p>
+
+                    <form id="setup-form" class="setup-form">
+                        <div class="form-group">
+                            <label for="resume" class="form-label">
+                                <span class="label-icon">📄</span>
+                                Your Resume
+                            </label>
+                            <textarea 
+                                id="resume" 
+                                name="resume" 
+                                class="form-textarea"
+                                placeholder="Paste your resume here..."
+                                rows="8"
+                                required
+                            ></textarea>
+                            <div class="form-hint">Include your experience, skills, and achievements</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="job_description" class="form-label">
+                                <span class="label-icon">💼</span>
+                                Job Description
+                            </label>
+                            <textarea 
+                                id="job_description" 
+                                name="job_description" 
+                                class="form-textarea"
+                                placeholder="Paste the job description here..."
+                                rows="8"
+                                required
+                            ></textarea>
+                            <div class="form-hint">Include requirements, responsibilities, and qualifications</div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-large">
+                            Begin Interview
+                            <span class="btn-arrow">→</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interview Screen -->
+        <div id="interview-screen" class="screen">
+            <div class="container">
+                <div class="interview-layout">
+                    <!-- Progress Bar -->
+                    <div class="progress-section">
+                        <div class="progress-header">
+                            <span class="progress-label">Interview Progress</span>
+                            <span class="progress-count">
+                                <span id="current-question">0</span> / <span id="total-questions">6</span>
+                            </span>
+                        </div>
+                        <div class="progress-bar">
+                            <div id="progress-fill" class="progress-fill"></div>
+                        </div>
+                    </div>
+
+                    <!-- Panelist Info -->
+                    <div id="panelist-card" class="panelist-card">
+                        <div class="panelist-avatar" id="panelist-avatar">👔</div>
+                        <div class="panelist-info">
+                            <h3 id="panelist-name" class="panelist-name">Hiring Manager</h3>
+                            <p id="panelist-role" class="panelist-role">Behavioral & Leadership</p>
+                        </div>
+                    </div>
+
+                    <!-- Question Card -->
+                    <div class="question-card">
+                        <div class="question-header">
+                            <span class="question-label">Question</span>
+                        </div>
+                        <div id="question-text" class="question-text">
+                            Loading question...
+                        </div>
+                    </div>
+
+                    <!-- Answer Form -->
+                    <form id="answer-form" class="answer-form">
+                        <div class="form-group">
+                            <label for="answer" class="form-label">
+                                <span class="label-icon">💭</span>
+                                Your Answer
+                            </label>
+                            <textarea 
+                                id="answer" 
+                                name="answer" 
+                                class="form-textarea answer-textarea"
+                                placeholder="Type your answer here... Be specific and provide concrete examples."
+                                rows="6"
+                                required
+                            ></textarea>
+                            <div class="answer-stats">
+                                <span id="word-count" class="stat">0 words</span>
+                                <span class="stat-divider">•</span>
+                                <span id="char-count" class="stat">0 characters</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-large" id="submit-answer-btn">
+                            Submit Answer
+                            <span class="btn-arrow">→</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Screen -->
+        <div id="dashboard-screen" class="screen">
+            <div class="container">
+                <div class="dashboard-content">
+                    <div class="dashboard-header">
+                        <h2 class="screen-title">Interview Complete! 🎉</h2>
+                        <p class="screen-subtitle">Here's your performance analysis</p>
+                    </div>
+
+                    <!-- Score Card -->
+                    <div class="score-card">
+                        <div class="score-circle">
+                            <svg class="score-svg" viewBox="0 0 200 200">
+                                <circle class="score-bg" cx="100" cy="100" r="90"></circle>
+                                <circle id="score-progress" class="score-progress" cx="100" cy="100" r="90"></circle>
+                            </svg>
+                            <div class="score-content">
+                                <div id="overall-score" class="score-value">0</div>
+                                <div class="score-label">Overall Score</div>
+                            </div>
+                        </div>
+                        <div id="hire-recommendation" class="hire-badge">
+                            <span class="badge-icon">✅</span>
+                            <span class="badge-text">Hire Recommended</span>
+                        </div>
+                    </div>
+
+                    <!-- Strengths -->
+                    <div class="dashboard-section">
+                        <h3 class="section-title">
+                            <span class="section-icon">✨</span>
+                            Your Strengths
+                        </h3>
+                        <div id="strengths-list" class="strengths-list">
+                            <!-- Populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Critical Gaps -->
+                    <div class="dashboard-section">
+                        <h3 class="section-title">
+                            <span class="section-icon">⚠️</span>
+                            Areas for Improvement
+                        </h3>
+                        <div id="gaps-list" class="gaps-list">
+                            <!-- Populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Behavioral Feedback -->
+                    <div class="dashboard-section">
+                        <h3 class="section-title">
+                            <span class="section-icon">💬</span>
+                            Behavioral Feedback
+                        </h3>
+                        <div id="behavioral-feedback" class="feedback-text">
+                            <!-- Populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="dashboard-actions">
+                        <button class="btn btn-primary btn-large" onclick="downloadReport()">
+                            Download Report
+                            <span class="btn-arrow">↓</span>
+                        </button>
+                        <button class="btn btn-secondary btn-large" onclick="startNewInterview()">
+                            Start New Interview
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">Processing...</p>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

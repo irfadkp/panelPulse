@@ -1,0 +1,47 @@
+John Doe
+Senior Software Engineer
+john.doe@email.com | LinkedIn: linkedin.com/in/johndoe
+
+SUMMARY
+Results-driven Senior Software Engineer with 7+ years of experience designing and implementing scalable distributed systems. Expert in Kubernetes, microservices architecture, and cloud-native technologies. Proven track record of leading technical initiatives that improved system reliability by 99.9% and reduced deployment times by 75%.
+
+TECHNICAL SKILLS
+- Languages: Python, Java, Go, JavaScript/TypeScript
+- Cloud & Infrastructure: Kubernetes, Docker, AWS (EKS, EC2, S3, RDS), Terraform
+- Distributed Systems: Microservices, Event-driven architecture, Message queues (Kafka, RabbitMQ)
+- Databases: PostgreSQL, MongoDB, Redis, Elasticsearch
+- Observability: Prometheus, Grafana, OpenTelemetry, Jaeger, ELK Stack
+- CI/CD: Jenkins, GitLab CI, ArgoCD, GitHub Actions
+
+PROFESSIONAL EXPERIENCE
+
+Senior Software Engineer | TechCorp Inc. | 2021 - Present
+- Led migration of monolithic application to microservices architecture serving 10M+ users, reducing deployment time from 4 hours to 30 minutes
+- Designed and implemented distributed tracing system using OpenTelemetry and Jaeger, improving mean time to resolution (MTTR) by 60%
+- Architected auto-scaling solution using Kubernetes HPA and custom metrics, handling 5x traffic spikes during peak hours
+- Mentored team of 5 junior developers, conducting code reviews and establishing best practices for service mesh implementation
+- Reduced production incidents by 45% through implementation of circuit breakers and comprehensive monitoring
+
+Software Engineer | StartupXYZ | 2018 - 2021
+- Built real-time analytics pipeline processing 100K events/second using Kafka and Apache Flink
+- Implemented blue-green deployment strategy reducing downtime from hours to zero during releases
+- Optimized database queries reducing API response time from 5 seconds to 200ms
+- Collaborated with product team to resolve technical debt, prioritizing high-impact refactoring initiatives
+
+Junior Software Engineer | DevShop LLC | 2017 - 2018
+- Developed RESTful APIs using Spring Boot serving 50K daily active users
+- Implemented automated testing suite increasing code coverage from 40% to 85%
+- Participated in on-call rotation, debugging production issues and implementing fixes
+
+EDUCATION
+Bachelor of Science in Computer Science | State University | 2017
+GPA: 3.8/4.0
+
+CERTIFICATIONS
+- Certified Kubernetes Administrator (CKA)
+- AWS Certified Solutions Architect - Associate
+
+NOTABLE PROJECTS
+- Open source contributor to Kubernetes and Prometheus projects
+- Built internal developer platform reducing service onboarding time from 2 weeks to 2 days
+- Designed multi-region disaster recovery strategy achieving RPO < 5 minutes
