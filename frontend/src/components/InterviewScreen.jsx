@@ -1,26 +1,29 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, MessageSquare, User } from 'lucide-react';
+import { ArrowRight, MessageSquare, User, Clock, TrendingUp } from 'lucide-react';
 import { interviewAPI } from '../services/api';
 
 const panelistInfo = {
   'hiring-manager': {
     name: 'Hiring Manager',
     role: 'Behavioral & Leadership',
-    icon: '👔',
+    icon: '🎭',
     color: 'from-blue-500 to-cyan-500',
+    bgColor: 'from-blue-50 to-cyan-50',
   },
   'system-architect': {
     name: 'System Architect',
     role: 'Design & Scalability',
     icon: '🏗️',
     color: 'from-purple-500 to-pink-500',
+    bgColor: 'from-purple-50 to-pink-50',
   },
   'senior-dev': {
     name: 'Senior Developer',
     role: 'Technical Depth & Debugging',
     icon: '💻',
     color: 'from-orange-500 to-red-500',
+    bgColor: 'from-orange-50 to-red-50',
   },
 };
 
@@ -67,28 +70,34 @@ const InterviewScreen = ({ sessionData, onComplete }) => {
   };
 
   return (
-    <div className="min-h-screen p-6">
+    <div className="min-h-screen p-6 bg-gradient-to-br from-slate-50 via-white to-slate-50">
       <div className="max-w-5xl mx-auto">
-        {/* Progress Bar */}
+        {/* Progress Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
+          className="mb-10"
         >
-          <div className="flex justify-between items-center mb-3">
-            <span className="text-sm font-semibold text-slate-600">
-              Interview Progress
-            </span>
-            <span className="text-sm font-bold text-slate-900">
-              {questionNumber} / {totalQuestions}
-            </span>
+          <div className="flex justify-between items-center mb-4">
+            <div className="flex items-center gap-3">
+              <Clock className="w-6 h-6 text-slate-600" />
+              <span className="text-lg font-bold text-slate-900">
+                Question {questionNumber} of {totalQuestions}
+              </span>
+            </div>
+            <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-md border border-slate-200">
+              <TrendingUp className="w-5 h-5 text-blue-600" />
+              <span className="text-sm font-semibold text-slate-700">
+                {Math.round(progress)}% Complete
+              </span>
+            </div>
           </div>
-          <div className="h-3 bg-slate-200 rounded-full overflow-hidden">
+          <div className="h-4 bg-slate-200 rounded-full overflow-hidden shadow-inner">
             <motion.div
               initial={{ width: 0 }}
               animate={{ width: `${progress}%` }}
-              transition={{ duration: 0.5 }}
-              className="h-full bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="h-full bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-full shadow-lg"
             />
           </div>
         </motion.div>
@@ -96,17 +105,23 @@ const InterviewScreen = ({ sessionData, onComplete }) => {
         {/* Panelist Card */}
         <motion.div
           key={currentPanelist}
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="bg-white rounded-2xl shadow-lg p-6 mb-6 border border-slate-200"
+          initial={{ opacity: 0, scale: 0.95, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="bg-white rounded-3xl shadow-xl p-8 mb-8 border-2 border-slate-100"
         >
-          <div className="flex items-center gap-4">
-            <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${panelist.color} flex items-center justify-center text-3xl shadow-lg`}>
+          <div className="flex items-center gap-6">
+            <motion.div
+              initial={{ rotate: -10 }}
+              animate={{ rotate: 0 }}
+              transition={{ type: "spring", stiffness: 200 }}
+              className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${panelist.color} flex items-center justify-center text-4xl shadow-xl`}
+            >
               {panelist.icon}
-            </div>
+            </motion.div>
             <div>
-              <h3 className="text-xl font-bold text-slate-900">{panelist.name}</h3>
-              <p className="text-slate-600">{panelist.role}</p>
+              <h3 className="text-2xl font-bold text-slate-900 mb-1">{panelist.name}</h3>
+              <p className="text-lg text-slate-600 font-medium">{panelist.role}</p>
             </div>
           </div>
         </motion.div>
@@ -114,15 +129,18 @@ const InterviewScreen = ({ sessionData, onComplete }) => {
         {/* Question Card */}
         <motion.div
           key={currentQuestion}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-br from-white to-slate-50 rounded-2xl shadow-xl p-8 mb-6 border border-slate-200"
+          transition={{ duration: 0.6 }}
+          className={`bg-gradient-to-br ${panelist.bgColor} rounded-3xl shadow-xl p-10 mb-8 border-2 border-slate-100`}
         >
-          <div className="flex items-start gap-3 mb-4">
-            <MessageSquare className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
-            <div>
-              <h4 className="text-sm font-semibold text-slate-500 mb-2">QUESTION</h4>
-              <p className="text-lg text-slate-900 leading-relaxed whitespace-pre-wrap">
+          <div className="flex items-start gap-4">
+            <div className={`w-12 h-12 bg-gradient-to-br ${panelist.color} rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg`}>
+              <MessageSquare className="w-6 h-6 text-white" />
+            </div>
+            <div className="flex-1">
+              <h4 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-3">Question</h4>
+              <p className="text-xl text-slate-900 leading-relaxed font-medium whitespace-pre-wrap">
                 {currentQuestion}
               </p>
             </div>
@@ -131,47 +149,58 @@ const InterviewScreen = ({ sessionData, onComplete }) => {
 
         {/* Answer Form */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="bg-white rounded-2xl shadow-xl p-8 border border-slate-200"
+          transition={{ delay: 0.3, duration: 0.6 }}
+          className="bg-white rounded-3xl shadow-xl p-10 border-2 border-slate-100"
         >
           {error && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl text-red-700"
+              className="mb-8 p-5 bg-red-50 border-2 border-red-200 rounded-2xl text-red-700 font-medium"
             >
               {error}
             </motion.div>
           )}
 
           <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-              <label className="flex items-center gap-2 text-lg font-semibold text-slate-900 mb-3">
-                <User className="w-5 h-5 text-purple-600" />
+            <div className="mb-6">
+              <label className="flex items-center gap-3 text-xl font-bold text-slate-900 mb-4">
+                <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+                  <User className="w-5 h-5 text-white" />
+                </div>
                 Your Answer
               </label>
               <textarea
                 value={answer}
                 onChange={(e) => setAnswer(e.target.value)}
-                placeholder="Type your answer here... Be specific and provide concrete examples."
-                rows={8}
-                className="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:border-purple-500 focus:ring-4 focus:ring-purple-100 transition-all outline-none resize-none text-slate-700"
+                placeholder="Type your answer here... Be specific and provide concrete examples with measurable outcomes."
+                rows={10}
+                className="w-full px-6 py-4 border-2 border-slate-200 rounded-2xl focus:border-purple-500 focus:ring-4 focus:ring-purple-100 transition-all outline-none resize-none text-slate-700 text-lg"
                 required
                 disabled={loading}
               />
-              <div className="mt-3 flex items-center gap-4 text-sm text-slate-500">
-                <span>{wordCount} words</span>
-                <span>•</span>
-                <span>{charCount} characters</span>
-                {wordCount < 20 && (
-                  <>
-                    <span>•</span>
-                    <span className="text-orange-600 font-medium">
-                      Tip: Provide more detail for better feedback
+              <div className="mt-4 flex items-center gap-6 text-base">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                  <span className="text-slate-600 font-medium">{wordCount} words</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                  <span className="text-slate-600 font-medium">{charCount} characters</span>
+                </div>
+                {wordCount < 30 && (
+                  <motion.div
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className="flex items-center gap-2 px-4 py-2 bg-orange-50 border border-orange-200 rounded-full"
+                  >
+                    <TrendingUp className="w-4 h-4 text-orange-600" />
+                    <span className="text-orange-700 font-semibold text-sm">
+                      Add more detail for better feedback
                     </span>
-                  </>
+                  </motion.div>
                 )}
               </div>
             </div>
@@ -181,17 +210,17 @@ const InterviewScreen = ({ sessionData, onComplete }) => {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               disabled={loading}
-              className="w-full px-6 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+              className="w-full px-8 py-5 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white rounded-2xl font-bold text-xl shadow-xl hover:shadow-2xl transition-all flex items-center justify-center gap-3 disabled:opacity-50"
             >
               {loading ? (
                 <>
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  Processing...
+                  <div className="w-6 h-6 border-3 border-white border-t-transparent rounded-full animate-spin" />
+                  Processing Answer...
                 </>
               ) : (
                 <>
                   Submit Answer
-                  <ArrowRight className="w-5 h-5" />
+                  <ArrowRight className="w-6 h-6" />
                 </>
               )}
             </motion.button>
@@ -203,5 +232,3 @@ const InterviewScreen = ({ sessionData, onComplete }) => {
 };
 
 export default InterviewScreen;
-
-// Made with Bob
