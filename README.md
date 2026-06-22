@@ -1,8 +1,8 @@
-# PanelPulse - AI-Powered Mock Technical Interview System
+# PanelPulse - Mock Technical Interview System
 
-🎯 **Realistic technical interview practice with multi-agent AI orchestration**
+🎯 **Realistic technical interview practice with multi-agent orchestration**
 
-PanelPulse simulates a complete technical interview panel with three specialized interviewers, providing job seekers with realistic practice and detailed performance feedback. Available in both CLI and beautiful web interface versions, with optional AI-powered dynamic question generation.
+PanelPulse simulates a complete technical interview panel with three specialized interviewers, providing job seekers with realistic practice and detailed performance feedback. Available in both CLI and beautiful web interface versions.
 
 ## 📋 Table of Contents
 
@@ -13,7 +13,6 @@ PanelPulse simulates a complete technical interview panel with three specialized
 - [Installation](#-installation)
 - [Usage](#-usage)
 - [Web Application](#-web-application)
-- [AI-Powered Version](#-ai-powered-version)
 - [Configuration](#-configuration)
 - [Dashboard & Feedback](#-dashboard--feedback)
 - [Customization](#-customization)
@@ -34,7 +33,6 @@ PanelPulse provides a comprehensive mock interview experience with:
 - **Multiple Interfaces**:
   - CLI version for terminal-based interviews
   - Modern web application with React + Flask
-  - AI-powered version with IBM watsonx.ai integration
 
 ## ✨ Features
 
@@ -55,19 +53,12 @@ PanelPulse provides a comprehensive mock interview experience with:
 - 🎬 Smooth animations with Framer Motion
 - 💾 Download report as JSON
 
-### AI-Powered Features (Optional)
-- 🤖 Dynamic question generation based on your resume
-- 🧠 Intelligent answer evaluation
-- 📈 Personalized feedback and insights
-- 🎯 Context-aware follow-up questions
-
 ## 🚀 Quick Start
 
 ### Prerequisites
 
 - **Python 3.7+** (required for all versions)
 - **Node.js 16+** (required for web version)
-- **IBM watsonx.ai account** (optional, for AI version)
 
 ### Fastest Way to Run
 
@@ -93,22 +84,6 @@ npm run dev
 ```
 
 Then open: **http://localhost:3000**
-
-#### AI Version (Requires Credentials)
-
-```bash
-# 1. Set up credentials
-cp .env.example .env
-nano .env  # Add your WATSONX_API_KEY and WATSONX_PROJECT_ID
-
-# 2. Install dependencies
-pip3 install Flask flask-cors requests
-
-# 3. Run
-python3 app_ai.py  # Web version
-# OR
-python3 panelpulse_ai.py  # CLI version
-```
 
 ## 🏗️ Architecture
 
@@ -252,10 +227,6 @@ pip3 install -r requirements.txt
 cd frontend
 npm install
 cd ..
-
-# 4. (Optional) Set up AI credentials
-cp .env.example .env
-# Edit .env with your IBM watsonx.ai credentials
 ```
 
 ### Minimal Installation (CLI Only)
@@ -387,47 +358,6 @@ cd frontend && npm run dev
 
 **GET `/api/example-data`**
 Returns example resume and job description for testing.
-
-### AI-Powered Version
-
-#### Setup
-
-```bash
-# 1. Get IBM watsonx.ai credentials
-# - API Key: https://cloud.ibm.com/iam/apikeys
-# - Project ID: https://dataplatform.cloud.ibm.com/wx/home
-
-# 2. Configure environment
-cp .env.example .env
-nano .env
-```
-
-Add to `.env`:
-```bash
-WATSONX_API_KEY=your_ibm_cloud_api_key_here
-WATSONX_PROJECT_ID=your_watsonx_project_id_here
-WATSONX_MODEL_ID=ibm/granite-13b-chat-v2  # Optional
-```
-
-#### Running AI Version
-
-**CLI:**
-```bash
-python3 panelpulse_ai.py
-```
-
-**Web:**
-```bash
-python3 app_ai.py
-cd frontend && npm run dev
-```
-
-#### AI Features
-
-- **Dynamic Questions**: AI generates unique questions based on your resume
-- **Intelligent Evaluation**: Semantic analysis of your answers
-- **Personalized Feedback**: Tailored insights and suggestions
-- **Context-Aware**: Learns from previous answers
 
 ## 📊 Dashboard & Feedback
 
@@ -628,47 +558,15 @@ lsof -ti:5000 | xargs kill -9
 lsof -ti:3000 | xargs kill -9
 ```
 
-### AI Version Issues
-
-**"Could not authenticate with watsonx.ai"**
-```bash
-# Check API key is correct
-cat .env | grep WATSONX_API_KEY
-
-# Verify IBM Cloud account is active
-# Ensure watsonx.ai access is enabled
-```
-
-**"WatsonX API error"**
-```bash
-# Check project ID
-cat .env | grep WATSONX_PROJECT_ID
-
-# Verify API quota
-# Check IBM Cloud service status
-```
-
-**Slow AI responses**
-```bash
-# Normal - AI generation takes 5-15 seconds per question
-# Consider using a faster model in .env:
-WATSONX_MODEL_ID=ibm/granite-13b-chat-v2
-```
-
 ## 📁 Project Structure
 
 ```
 panelpulse/
-├── panelpulse.py              # CLI version (static questions)
-├── panelpulse_ai.py           # CLI version (AI-powered)
-├── app.py                     # Web backend (static)
-├── app_ai.py                  # Web backend (AI-powered)
-├── watsonx_client.py          # IBM watsonx.ai integration
+├── panelpulse.py              # CLI version
+├── app.py                     # Web backend
 ├── requirements.txt           # Python dependencies
-├── .env.example               # Environment template
 ├── example_resume.txt         # Sample resume
 ├── example_job_description.txt # Sample job description
-├── ARCHITECTURE.md            # Detailed architecture docs
 ├── README.md                  # This file
 ├── frontend/                  # React web application
 │   ├── package.json
@@ -694,15 +592,8 @@ panelpulse/
 
 - ✅ **No persistence**: All data in memory only
 - ✅ **No logging**: No files written to disk
-- ✅ **No network**: Completely offline (except AI version)
-- ✅ **No external APIs**: Self-contained system (static version)
-
-### AI Version Security
-
-- API keys loaded from environment variables
-- Never commit `.env` file to version control
-- Credentials are not logged or exposed
-- Use `.env.example` as template
+- ✅ **No network**: Completely offline
+- ✅ **No external APIs**: Self-contained system
 
 ## 🚀 Production Deployment
 
@@ -768,7 +659,6 @@ Contributions welcome! Areas for improvement:
 - **Python 3.7+**: Core language
 - **Flask**: Web framework
 - **Flask-CORS**: CORS support
-- **IBM watsonx.ai**: AI integration (optional)
 
 ### Frontend
 - **React 18**: UI library
@@ -787,21 +677,14 @@ This project is provided as-is for educational and practice purposes.
 
 Built with ❤️ for job seekers preparing for technical interviews.
 
-Special thanks to:
-- IBM watsonx.ai for AI capabilities
-- The open-source community for amazing tools
-
 ---
 
 ## 📞 Support
 
 For issues or questions:
 1. Check the [Troubleshooting](#-troubleshooting) section
-2. Review `ARCHITECTURE.md` for technical details
-3. Open an issue in the repository
+2. Open an issue in the repository
 
 ---
 
 **Good luck with your interview preparation! 🚀**
-
-*Made with ❤️ and 🤖 AI*
