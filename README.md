@@ -61,15 +61,59 @@ PanelPulse provides a comprehensive mock interview experience with:
 
 - **Python 3.7+** (required for all versions)
 - **Node.js 16+** (required for web version)
+- **AI Provider API Key** (optional, for AI-powered version)
 
 ### Fastest Way to Run
 
-#### CLI Version (No Setup Required)
+#### CLI Version (No AI Required)
 
 ```bash
 cd /root/panelpulse
 python3 panelpulse.py
 ```
+
+#### AI-Powered Version (Pluggable AI Providers)
+
+PanelPulse supports multiple AI providers - choose the one you prefer!
+
+**Supported Providers:**
+- 🤖 **ChatGPT** (OpenAI) - GPT-4, GPT-3.5-turbo
+- 🔮 **Gemini** (Google) - Gemini Pro
+- 🎭 **Mock** (No API key needed) - Simple rule-based responses
+
+**Setup:**
+
+```bash
+# 1. Copy environment template
+cp .env.example .env
+
+# 2. Edit .env and configure your preferred provider
+nano .env
+
+# 3. Run AI-powered version
+python3 panelpulse_ai.py
+```
+
+**Example .env configuration:**
+
+```bash
+# For ChatGPT
+AI_PROVIDER=chatgpt
+OPENAI_API_KEY=sk-your-key-here
+OPENAI_MODEL=gpt-4
+
+# OR for Gemini
+AI_PROVIDER=gemini
+GEMINI_API_KEY=your-key-here
+GEMINI_MODEL=gemini-pro
+
+# OR for Mock (no API key needed)
+AI_PROVIDER=mock
+```
+
+**Get API Keys:**
+- ChatGPT: https://platform.openai.com/api-keys
+- Gemini: https://makersuite.google.com/app/apikey
 
 #### Web Version (2 Commands)
 
@@ -213,6 +257,110 @@ PanelPulse uses a **multi-agent orchestration pattern** where a central coordina
 - Analyzes all responses in real-time
 - Tracks knowledge gaps and weak areas
 - Generates comprehensive feedback dashboard
+
+## 🤖 AI Provider System
+
+PanelPulse features a **pluggable AI provider architecture** that allows you to choose your preferred AI service. The system is designed to be flexible and extensible.
+
+### Architecture
+
+```
+┌─────────────────────────────────────────┐
+│     Interview Orchestrator              │
+│                                         │
+│  ┌───────────────────────────────────┐ │
+│  │    AI Client Factory              │ │
+│  │  (Provider Selection)             │ │
+│  └───────────┬───────────────────────┘ │
+│              │                          │
+│    ┌─────────┼─────────┐               │
+│    │         │         │               │
+│    ▼         ▼         ▼               │
+│  ┌────┐  ┌────┐  ┌────┐               │
+│  │GPT │  │Gem │  │Mock│               │
+│  │ 4  │  │ini │  │    │               │
+│  └────┘  └────┘  └────┘               │
+└─────────────────────────────────────────┘
+```
+
+### Supported Providers
+
+| Provider | Models | API Key Required | Best For |
+|----------|--------|------------------|----------|
+| **ChatGPT** | GPT-4, GPT-3.5-turbo | ✅ Yes | Advanced reasoning, detailed feedback |
+| **Gemini** | Gemini Pro | ✅ Yes | Fast responses, good quality |
+| **Mock** | Rule-based | ❌ No | Testing, no API costs |
+
+### Configuration
+
+**1. Copy environment template:**
+```bash
+cp .env.example .env
+```
+
+**2. Edit .env file:**
+```bash
+# Choose your provider
+AI_PROVIDER=gemini  # or chatgpt, mock
+
+# Add your API key
+GEMINI_API_KEY=your_key_here
+# OR
+OPENAI_API_KEY=your_key_here
+```
+
+**3. Run AI-powered version:**
+```bash
+python3 panelpulse_ai.py
+```
+
+### Getting API Keys
+
+#### ChatGPT (OpenAI)
+1. Visit: https://platform.openai.com/api-keys
+2. Sign up or log in
+3. Create new API key
+4. Copy to `.env` as `OPENAI_API_KEY`
+
+#### Gemini (Google)
+1. Visit: https://makersuite.google.com/app/apikey
+2. Sign in with Google account
+3. Create API key
+4. Copy to `.env` as `GEMINI_API_KEY`
+
+### Adding Custom Providers
+
+Want to add your own AI provider? It's easy!
+
+**1. Create a new client:**
+```python
+# ai_clients/my_provider_client.py
+from .base_client import BaseAIClient
+
+class MyProviderClient(BaseAIClient):
+    def generate(self, prompt, max_tokens=500, temperature=0.7, **kwargs):
+        # Your implementation here
+        pass
+    
+    def validate_credentials(self):
+        # Validation logic
+        pass
+```
+
+**2. Register in factory:**
+```python
+# ai_clients/client_factory.py
+SUPPORTED_PROVIDERS = {
+    'myprovider': MyProviderClient,
+    # ... existing providers
+}
+```
+
+**3. Configure in .env:**
+```bash
+AI_PROVIDER=myprovider
+MYPROVIDER_API_KEY=your_key
+```
 
 ## 📦 Installation
 
@@ -564,12 +712,21 @@ lsof -ti:3000 | xargs kill -9
 
 ```
 panelpulse/
-├── panelpulse.py              # CLI version
+├── panelpulse.py              # CLI version (no AI)
+├── panelpulse_ai.py           # AI-powered CLI version
 ├── app.py                     # Web backend
 ├── requirements.txt           # Python dependencies
+├── .env.example               # Environment template
 ├── example_resume.txt         # Sample resume
 ├── example_job_description.txt # Sample job description
 ├── README.md                  # This file
+├── ai_clients/                # Pluggable AI providers
+│   ├── __init__.py
+│   ├── base_client.py         # Abstract base class
+│   ├── chatgpt_client.py      # OpenAI ChatGPT
+│   ├── gemini_client.py       # Google Gemini
+│   ├── mock_client.py         # No API needed
+│   └── client_factory.py      # Provider factory
 ├── frontend/                  # React web application
 │   ├── package.json
 │   ├── vite.config.js
